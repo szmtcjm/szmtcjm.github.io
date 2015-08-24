@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>费用计算</title>
+    <style type="text/css">
+    section {
+        border-top: 1px solid #C0C7D2;
+        padding: 8px;
+    }
+    section:after {
+        content: '';
+        display: block;
+        height: 0;
+        clear: both;
+    }
+    h3 {
+        margin: 8px;
+    }
+    input {
+        width: 120px;
+        height: 26px;
+        border: 1px solid #ff6600;
+        border-radius: 3px;
+        vertical-align: middle;
+    }
+    input:focus {
+        outline: 0;
+    }
+    button {
+        height: 30px;
+        width: 100px;
+        border: none;
+        border-radius: 0;
+        color: white;
+        font-size: 16px;
+        background: #ff6600;
+        vertical-align: middle;
+    }
+    button:focus {
+        outline: 0;
+        background: #ff6633;
+    }
+    button:active {
+        background: #ff9900;
+    }
+    .one {
+        float: left;
+        width: 320px;
+    }
+    </style>
+</head>
+<body>
+<section style="border-top:none">
+    <div style="float:left;margin: 10px;"><label for="电费">电费：<input type="text" id="dianfei"></label></div>
+    <div style="float:left;margin: 10px;"><label for="水费">水费：<input type="text" id="shuifei"></label></div>
+    <div style="float:left;margin: 10px;"><button onclick="cal()">计算</button></div>
+</section>
+<section id="df" class="one">
+    <h3>电费</h3>
+    <p>
+        陈江明: <span class="cjm"></span>
+
+    </p>
+    <p>
+        王奥达: <span class="wad"></span>
+    </p>
+    <p>
+        徐 超: <span class="hc"></span>
+    </p>
+</section>
+<section id="sf" class="one">
+    <h3>水费 </h3>
+    <p>
+        陈江明: <span class="cjm"></span>
+
+    </p>
+    <p>
+        王奥达: <span class="wad"></span>
+    </p>
+    <p>
+        徐 超: <span class="hc"></span>
+    </p>
+</section>
+<section id="z" style="clear:both">
+    <h3>总共 </h3>
+    <p>
+        陈江明: <span class="cjm"></span>
+
+    </p>
+    <p>
+        王奥达: <span class="wad"></span>
+    </p>
+    <p>
+        徐 超: <span class="hc"></span>
+    </p>
+</section>
+<script type="text/javascript">
+
+var df = document.querySelector('#dianfei');
+var sf = document.querySelector('#shuifei');
+
+var dcjm = document.querySelector('#df .cjm');
+var dwad = document.querySelector('#df .wad');
+var dhc = document.querySelector('#df .hc');
+
+var scjm = document.querySelector('#sf .cjm');
+var swad = document.querySelector('#sf .wad');
+var shc = document.querySelector('#sf .hc');
+
+var zcjm = document.querySelector('#z .cjm');
+var zwad = document.querySelector('#z .wad');
+var zhc = document.querySelector('#z .hc');
+
+function d(value) {
+    return value / 4;
+}
+
+function s(value) {
+    return value / 5;
+}
+
+function cal() {
+    var dfv = df.value;
+    var sfv = sf.value;
+    if (dfv) {
+        dcjm.innerHTML = dwad.innerHTML = d(dfv) * 1.5;
+        dhc.innerHTML = d(dfv);
+    }
+
+    if (sfv) {
+        scjm.innerHTML = swad.innerHTML = s(sfv) * 2;
+        shc.innerHTML = s(sfv);
+    }
+
+    if (dfv && sfv) {
+        zcjm.innerHTML = zwad.innerHTML = Number(dcjm.innerHTML) + Number(scjm.innerHTML);
+        zhc.innerHTML = Number(dhc.innerHTML) + Number(shc.innerHTML);
+    }
+}
+
+(function () {
+    function getQueryStringByName(name){
+         var result = location.search.match(new RegExp("[\?\&]" + name+ "=([^\&]+)","i"));
+         if(result == null || result.length < 1){
+             return "";
+         }
+         return result[1];
+    }
+    var d = +getQueryStringByName('d');
+    var s = +getQueryStringByName('s');
+    if (d > 0) {
+        df.value = d;
+    }
+    if (s > 0) {
+        sf.value = s;
+    }
+    
+    cal();
+})();
+
+
+</script>
+</body>
+</html>
